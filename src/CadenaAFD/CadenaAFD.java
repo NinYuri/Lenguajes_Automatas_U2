@@ -93,7 +93,7 @@ public class CadenaAFD extends javax.swing.JFrame
                                     modeloTabla.setValueAt("-1", fila, columna);
                                 }
                                 else
-                                    matriz[fila][(columna - 1)] = valor.toString();                                
+                                    matriz[(fila + 1)][columna] = valor.toString();                                
                     }                
                 }            
             }        
@@ -379,10 +379,11 @@ public class CadenaAFD extends javax.swing.JFrame
                         
                         matriz = new String[Integer.parseInt(estados) + 1][alfabeto.length() + 1];
                         matriz[0][0] = "";
-                        for(int i = 0; i < Math.min(matriz[0].length, alfabeto.length()); i++)
-                            matriz[0][i] = alfabeto.charAt(i) + "";
+                        for(int i = 0; i < Math.min(matriz[0].length - 1, alfabeto.length()); i++)
+                            matriz[0][i + 1] = alfabeto.charAt(i) + "";
                         for(int j = 1; j < matriz.length; j++)
                             matriz[j][0] = String.valueOf(j - 1);
+                                                
                         validateInputAndUpdateTable(modeloTabla, estados);
                     }
                 }                             
