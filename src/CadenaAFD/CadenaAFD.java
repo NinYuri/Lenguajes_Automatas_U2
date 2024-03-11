@@ -258,17 +258,8 @@ public class CadenaAFD extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnValidarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnValidarMouseClicked
-        System.out.println("Matriz");
-        for(int i = 0; i < matriz.length; i++) {
-            for(int j = 0; j < matriz[i].length; j++) {
-                System.out.print(matriz[i][j] + "\t");
-            }
-            System.out.println();
-        }
-        
         cadena = txtCadena.getText();
         ban = true;
-        char car;
         
         if(Empty(cadena, "Debes ingresar la cadena a validar por el autómata", txtCadena));
         else {
@@ -279,7 +270,28 @@ public class CadenaAFD extends javax.swing.JFrame
                     break;
                 }
             if(ban) {
+                int row = 1;
+                for(int i = 0; i < cadena.length(); i++) {
+                    char car = cadena.charAt(i);
+                    
+                    int columna = 0;
+                    for(int j = 1; j < matriz[0].length; j++) {
+                        if(matriz[0][j].equals(String.valueOf(car))) {                       
+                            columna = j;
+                            break;
+                        }
+                    }                                     
+                    row = Integer.parseInt(matriz[row + 1][columna]);
+                    
+                    if(row == -1)
+                        break;
+                }
+                System.out.println("Estado final: " + row);
+                System.out.println("Estados finales: " + estfinales);
                 
+                for(int i = 0; i < estfinales.length(); i++)
+                    if(row == Integer.parseInt(String.valueOf(estfinales.charAt(i))))
+                        OptionPane.showMessage("Registro en el Sistema", "Usuario registrado exitosamente, por favor ingrese con su nueva cuenta", "/img/iconos/Info.png");
             }
         }
     }//GEN-LAST:event_btnValidarMouseClicked
