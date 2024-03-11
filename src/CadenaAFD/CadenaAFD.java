@@ -285,13 +285,16 @@ public class CadenaAFD extends javax.swing.JFrame
                     
                     if(row == -1)
                         break;
-                }
-                System.out.println("Estado final: " + row);
-                System.out.println("Estados finales: " + estfinales);
-                
+                }                
                 for(int i = 0; i < estfinales.length(); i++)
-                    if(row == Integer.parseInt(String.valueOf(estfinales.charAt(i))))
-                        OptionPane.showMessage("Registro en el Sistema", "Usuario registrado exitosamente, por favor ingrese con su nueva cuenta", "/img/iconos/Info.png");
+                    if(row == Integer.parseInt(String.valueOf(estfinales.charAt(i)))) {
+                        OptionPane.showMessage("VALIDACIÓN", "Cadena Aceptada", "/img/Info.png");
+                        break;
+                    }
+                    else {
+                        OptionPane.showMessage("VALIDACIÓN", "Cadena Rechazada", "/img/Close.png");
+                        break;
+                    }
             }
         }
     }//GEN-LAST:event_btnValidarMouseClicked
