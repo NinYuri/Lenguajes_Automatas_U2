@@ -267,7 +267,7 @@ public class CadenaAFD extends javax.swing.JFrame
                 if(!alfabeto.contains(String.valueOf(cadena.charAt(i)))) {
                     mostrarError("La cadena debe contener sólo elementos del alfabeto dado");
                     ban = false;
-                    break;
+                    return;
                 }
             if(ban) {
                 int row = 1;
@@ -284,10 +284,13 @@ public class CadenaAFD extends javax.swing.JFrame
                     row = Integer.parseInt(matriz[row + 1][columna]);
                     
                     if(row == -1)
-                        break;
+                         OptionPane.showMessage("VALIDACIÓN", "Cadena Rechazada", "/img/Close.png");
+                        return;
                 }                
                 for(int i = 0; i < estfinales.length(); i++)
-                    if(row == Integer.parseInt(String.valueOf(estfinales.charAt(i)))) {
+                    if(row == Integer.parseInt(estfinales.charAt(i)+
+                            "")) {
+                        
                         OptionPane.showMessage("VALIDACIÓN", "Cadena Aceptada", "/img/Info.png");
                         break;
                     }
