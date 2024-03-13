@@ -260,45 +260,23 @@ public class CadenaAFD extends javax.swing.JFrame
     private void btnValidarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnValidarMouseClicked
         cadena = txtCadena.getText();
         ban = true;
+        int row = 0, pos;
         
         if(Empty(cadena, "Debes ingresar la cadena a validar por el autómata", txtCadena));
         else {
-            for(int i = 0; i < cadena.length(); i++)
-                if(!alfabeto.contains(String.valueOf(cadena.charAt(i)))) {
+            for(int i = 0; i < cadena.length(); i++) {
+                pos = alfabeto.indexOf(String.valueOf(cadena.charAt(i)));
+                if(pos != -1)
+                    row = Integer.parseInt(matriz[row + 1][pos + 1]);                    
+                else {
                     mostrarError("La cadena debe contener sólo elementos del alfabeto dado");
-                    ban = false;
                     return;
                 }
-            if(ban) {
-                int row = 1;
-                for(int i = 0; i < cadena.length(); i++) {
-                    char car = cadena.charAt(i);
-                    
-                    int columna = 0;
-                    for(int j = 1; j < matriz[0].length; j++) {
-                        if(matriz[0][j].equals(String.valueOf(car))) {                       
-                            columna = j;
-                            break;
-                        }
-                    }                                     
-                    row = Integer.parseInt(matriz[row + 1][columna]);
-                    
-                    if(row == -1)
-                         OptionPane.showMessage("VALIDACIÓN", "Cadena Rechazada", "/img/Close.png");
-                        return;
-                }                
-                for(int i = 0; i < estfinales.length(); i++)
-                    if(row == Integer.parseInt(estfinales.charAt(i)+
-                            "")) {
-                        
-                        OptionPane.showMessage("VALIDACIÓN", "Cadena Aceptada", "/img/Info.png");
-                        break;
-                    }
-                    else {
-                        OptionPane.showMessage("VALIDACIÓN", "Cadena Rechazada", "/img/Close.png");
-                        break;
-                    }
             }
+            if(estfinales.indexOf(String.valueOf(row)) != -1)
+                OptionPane.showMessage("VALIDACIÓN", "Cadena Aceptada", "/img/Info.png");
+            else
+                OptionPane.showMessage("VALIDACIÓN", "Cadena Rechazada", "/img/Close.png");
         }
     }//GEN-LAST:event_btnValidarMouseClicked
 
