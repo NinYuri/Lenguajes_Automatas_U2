@@ -289,8 +289,13 @@ public class CadenaAFD extends javax.swing.JFrame
         
         for(int i = 0; i < cadena.length(); i++) {
             pos = alfabeto.indexOf(String.valueOf(cadena.charAt(i)));
-            if(pos != -1)
-                row = Integer.parseInt(matriz[row + 1][pos + 1]);                    
+            if(pos != -1) {
+                row = Integer.parseInt(matriz[row + 1][pos + 1]);
+                if(row == -1) {
+                    OptionPane.showMessage("VALIDACIÓN", "Cadena Rechazada", "/img/Close.png");
+                    return;
+                }
+            }
             else {
                 mostrarError("La cadena debe contener sólo elementos del alfabeto dado");
                 return;
