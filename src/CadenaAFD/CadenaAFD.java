@@ -21,6 +21,7 @@ public class CadenaAFD extends javax.swing.JFrame
     String estfinales = "";
     String cadena = "";
     String[][] matriz;
+    DefaultTableModel or;
 
     public CadenaAFD() 
     {
@@ -33,6 +34,7 @@ public class CadenaAFD extends javax.swing.JFrame
         lblAlfabeto.setVisible(false);
         lblEstados.setVisible(false);
         lblEstAceptacion.setVisible(false);
+        or = (DefaultTableModel)tblTransicion.getModel();
     }
 
     private void mostrarError(String msj)
@@ -64,6 +66,13 @@ public class CadenaAFD extends javax.swing.JFrame
         cadena.deleteCharAt(cadena.length() - 1);
         etiqueta.setText("{" + cadena + "}");
         etiqueta.setVisible(true);
+    }
+    
+    private void Another(JTextField texto, JLabel etiqueta)
+    {
+        texto.setText("");
+        etiqueta.setVisible(false);
+        texto.setVisible(true);
     }
 
     private void validateInputAndUpdateTable(DefaultTableModel modeloTabla, String estados) 
@@ -122,6 +131,7 @@ public class CadenaAFD extends javax.swing.JFrame
         tblGen = new javax.swing.JScrollPane();
         tblTransicion = new rojeru_san.complementos.RSTableMetro();
         jLabel9 = new javax.swing.JLabel();
+        btnOtro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -198,7 +208,7 @@ public class CadenaAFD extends javax.swing.JFrame
                 btnValidarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnValidar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 610, 270, 40));
+        getContentPane().add(btnValidar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 620, 270, 40));
 
         lblq0.setFont(new java.awt.Font("Consolas", 0, 20)); // NOI18N
         lblq0.setText("{0}");
@@ -254,6 +264,21 @@ public class CadenaAFD extends javax.swing.JFrame
         jLabel9.setText("Función de Transición:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
 
+        btnOtro.setBackground(new java.awt.Color(0, 153, 153));
+        btnOtro.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
+        btnOtro.setForeground(new java.awt.Color(255, 255, 255));
+        btnOtro.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnOtro.setText("Crear Otro Autómata");
+        btnOtro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnOtro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOtro.setOpaque(true);
+        btnOtro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOtroMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnOtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 620, 350, 40));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -262,22 +287,19 @@ public class CadenaAFD extends javax.swing.JFrame
         ban = true;
         int row = 0, pos;
         
-        if(Empty(cadena, "Debes ingresar la cadena a validar por el autómata", txtCadena));
-        else {
-            for(int i = 0; i < cadena.length(); i++) {
-                pos = alfabeto.indexOf(String.valueOf(cadena.charAt(i)));
-                if(pos != -1)
-                    row = Integer.parseInt(matriz[row + 1][pos + 1]);                    
-                else {
-                    mostrarError("La cadena debe contener sólo elementos del alfabeto dado");
-                    return;
-                }
+        for(int i = 0; i < cadena.length(); i++) {
+            pos = alfabeto.indexOf(String.valueOf(cadena.charAt(i)));
+            if(pos != -1)
+                row = Integer.parseInt(matriz[row + 1][pos + 1]);                    
+            else {
+                mostrarError("La cadena debe contener sólo elementos del alfabeto dado");
+                return;
             }
-            if(estfinales.indexOf(String.valueOf(row)) != -1)
-                OptionPane.showMessage("VALIDACIÓN", "Cadena Aceptada", "/img/Info.png");
-            else
-                OptionPane.showMessage("VALIDACIÓN", "Cadena Rechazada", "/img/Close.png");
         }
+        if(estfinales.indexOf(String.valueOf(row)) != -1)
+            OptionPane.showMessage("VALIDACIÓN", "Cadena Aceptada", "/img/Info.png");
+        else
+            OptionPane.showMessage("VALIDACIÓN", "Cadena Rechazada", "/img/Close.png");
     }//GEN-LAST:event_btnValidarMouseClicked
 
     private void txtAlfabetoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAlfabetoFocusLost
@@ -389,6 +411,13 @@ public class CadenaAFD extends javax.swing.JFrame
         
     }//GEN-LAST:event_txtCadenaFocusLost
 
+    private void btnOtroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOtroMouseClicked
+        Another(txtAlfabeto, lblAlfabeto);
+        Another(txtEstados, lblEstados);
+        Another(txtEstAceptacion, lblEstAceptacion);
+        tblTransicion.setModel(or);
+    }//GEN-LAST:event_btnOtroMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -423,6 +452,7 @@ public class CadenaAFD extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnOtro;
     private javax.swing.JLabel btnValidar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
